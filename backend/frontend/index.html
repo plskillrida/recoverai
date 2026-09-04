@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>RecoverAI Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script>
+
+        if (
+            localStorage.getItem("recoverai-theme") === "light"
+        ) {
+
+            document.addEventListener(
+                "DOMContentLoaded",
+                () => {
+
+                    document.body.classList.add(
+                        "light-mode"
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+
+        <!-- ================================================= -->
+        <!-- SIDEBAR -->
+        <!-- ================================================= -->
+
+        <aside class="sidebar">
+
+
+            <div class="logo">
+
+                <div class="logo-mark">
+                    R
+                </div>
+
+                <div>
+
+                    <h1>
+                        RecoverAI
+                    </h1>
+
+                    <span>
+                        Payment Recovery
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <nav>
+
+
+                <a
+                    href="index.html"
+                    class="nav-item active"
+                >
+                    <span>▦</span>
+                    Dashboard
+                </a>
+
+
+                <a
+                    href="recoveries.html"
+                    class="nav-item"
+                >
+                    <span>↻</span>
+                    Recoveries
+                </a>
+
+
+                <a
+                    href="transactions.html"
+                    class="nav-item"
+                >
+                    <span>◈</span>
+                    Transactions
+                </a>
+
+
+                <a
+                    href="settings.html"
+                    class="nav-item"
+                >
+                    <span>⚙</span>
+                    Settings
+                </a>
+
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+
+                <div class="ai-status">
+
+                    <div class="status-dot"></div>
+
+                    <div>
+
+                        <strong>
+                            AI Engine
+                        </strong>
+
+                        <span>
+                            Operational
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="logout()"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- ================================================= -->
+        <!-- MAIN -->
+        <!-- ================================================= -->
+
+        <main class="main">
+
+
+            <!-- HEADER -->
+
+            <header class="header">
+
+                <div>
+
+                    <h2>
+                        Recovery Dashboard
+                    </h2>
+
+                    <p>
+                        Monitor failed payments and recover lost revenue.
+                    </p>
+
+                </div>
+
+
+                <div class="header-status">
+
+                    <span class="pulse"></span>
+
+                    System operational
+
+                </div>
+
+            </header>
+
+
+
+            <!-- ================================================= -->
+            <!-- METRICS -->
+            <!-- ================================================= -->
+
+            <section class="metrics">
+
+
+                <!-- Revenue at Risk -->
+
+                <div class="metric-card">
+
+                    <div class="metric-top">
+
+                        <span>
+                            Revenue at Risk
+                        </span>
+
+                        <span class="metric-icon">
+                            ₹
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="metric-value"
+                        id="revenue-risk"
+                    >
+                        ₹0
+                    </div>
+
+
+                    <div class="metric-label">
+                        From failed payments
+                    </div>
+
+                </div>
+
+
+
+                <!-- Revenue Recovered -->
+
+                <div class="metric-card">
+
+                    <div class="metric-top">
+
+                        <span>
+                            Revenue Recovered
+                        </span>
+
+                        <span class="metric-icon">
+                            ✓
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="metric-value"
+                        id="revenue-recovered"
+                    >
+                        ₹0
+                    </div>
+
+
+                    <div class="metric-label">
+                        Successfully recovered
+                    </div>
+
+                </div>
+
+
+
+                <!-- Recovery Rate -->
+
+                <div class="metric-card">
+
+                    <div class="metric-top">
+
+                        <span>
+                            Recovery Rate
+                        </span>
+
+                        <span class="metric-icon">
+                            %
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="metric-value"
+                        id="recovery-rate"
+                    >
+                        0%
+                    </div>
+
+
+                    <div class="metric-label">
+                        Revenue recovered
+                    </div>
+
+                </div>
+
+
+
+                <!-- Failed Payments -->
+
+                <div class="metric-card">
+
+                    <div class="metric-top">
+
+                        <span>
+                            Failed Payments
+                        </span>
+
+                        <span class="metric-icon">
+                            !
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="metric-value"
+                        id="failed-payments"
+                    >
+                        0
+                    </div>
+
+
+                    <div class="metric-label">
+                        Requiring attention
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================================================= -->
+            <!-- RECOVERY OVERVIEW -->
+            <!-- ================================================= -->
+
+            <section class="overview-grid">
+
+
+                <!-- ================================================= -->
+                <!-- RECOVERY PERFORMANCE -->
+                <!-- ================================================= -->
+
+                <div class="panel recovery-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                Recovery Performance
+                            </h3>
+
+                            <p>
+                                Revenue recovery efficiency
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="recovery-visual">
+
+
+                        <!-- INTERACTIVE PROGRESS CIRCLE -->
+
+                        <div
+                            class="circle"
+                            id="recovery-circle"
+                            data-progress="0% recovered"
+                        >
+
+                            <div class="circle-inner">
+
+                                <strong id="circle-rate">
+                                    0%
+                                </strong>
+
+                                <span>
+                                    Recovered
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- RECOVERY DETAILS -->
+
+                        <div class="recovery-info">
+
+
+                            <div>
+
+                                <span>
+                                    At Risk
+                                </span>
+
+                                <strong id="overview-risk">
+                                    ₹0
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Recovered
+                                </span>
+
+                                <strong id="overview-recovered">
+                                    ₹0
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Recovery Links
+                                </span>
+
+                                <strong id="recovery-links">
+                                    0
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ================================================= -->
+                <!-- AI ENGINE -->
+                <!-- ================================================= -->
+
+                <div class="panel ai-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>
+                                AI Recovery Engine
+                            </h3>
+
+                            <p>
+                                Latest decision
+                            </p>
+
+                        </div>
+
+
+                        <span class="ai-badge">
+                            AI
+                        </span>
+
+                    </div>
+
+
+
+                    <div id="ai-decision">
+
+
+                        <div class="decision-icon">
+                            ✓
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Recovery engine ready
+                            </strong>
+
+                            <p>
+                                RecoverAI automatically analyzes
+                                failed transactions and determines
+                                the safest recovery action.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================================================= -->
+            <!-- TRANSACTIONS -->
+            <!-- ================================================= -->
+
+            <section class="panel transactions-panel">
+
+
+                <div class="panel-header">
+
+
+                    <div>
+
+                        <h3>
+                            Recent Failed Payments
+                        </h3>
+
+                        <p>
+                            AI-analyzed payment failures
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        onclick="loadTransactions()"
+                    >
+                        Refresh
+                    </button>
+
+
+                </div>
+
+
+
+                <div class="table-wrapper">
+
+
+                    <table>
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Payment
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                                <th>
+                                    Method
+                                </th>
+
+                                <th>
+                                    Failure
+                                </th>
+
+                                <th>
+                                    Recovery
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+
+                        <tbody id="transactions-body">
+
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="loading"
+                                >
+                                    Loading transactions...
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- AUTH FIRST -->
+    <!-- ================================================= -->
+
+    <script src="auth.js"></script>
+
+
+    <!-- ================================================= -->
+    <!-- DASHBOARD LOGIC -->
+    <!-- ================================================= -->
+
+    <script src="app.js"></script>
+
+
+</body>
+
+</html>

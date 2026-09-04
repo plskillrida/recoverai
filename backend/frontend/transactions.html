@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transactions | RecoverAI</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script>
+    if (
+        localStorage.getItem("recoverai-theme") === "light"
+    ) {
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+                document.body.classList.add("light-mode");
+            }
+        );
+    }
+</script>
+
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                R
+            </div>
+
+            <div>
+                <h1>RecoverAI</h1>
+                <span>Payment Recovery</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a href="index.html" class="nav-item">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+
+            <a href="recoveries.html" class="nav-item">
+                <span>↻</span>
+                Recoveries
+            </a>
+
+
+            <a href="transactions.html" class="nav-item active">
+                <span>◈</span>
+                Transactions
+            </a>
+
+
+            <a href="settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="ai-status">
+
+                <div class="status-dot"></div>
+
+                <div>
+                    <strong>AI Engine</strong>
+                    <span>Operational</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="header">
+
+            <div>
+
+                <h2>
+                    Transactions
+                </h2>
+
+                <p>
+                    View payment transactions and recovery information.
+                </p>
+
+            </div>
+
+
+            <div class="header-status">
+
+                <span class="pulse"></span>
+
+                System operational
+
+            </div>
+
+        </header>
+
+
+        <!-- TRANSACTIONS -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        All Transactions
+                    </h3>
+
+                    <p>
+                        Payment activity monitored by RecoverAI
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadTransactions()"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="loading"
+                class="transaction-loading"
+            >
+
+                Loading transactions...
+
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                id="error"
+                class="transaction-error"
+                style="display: none;"
+            >
+
+                <h3>
+                    Unable to load transactions
+                </h3>
+
+                <p id="error-message">
+                    An error occurred while loading transactions.
+                </p>
+
+            </div>
+
+
+            <!-- EMPTY -->
+
+            <div
+                id="empty"
+                class="transaction-loading"
+                style="display: none;"
+            >
+
+                No transactions found.
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div
+                id="transactions-container"
+                class="table-container"
+                style="display: none;"
+            >
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Payment ID
+                            </th>
+
+                            <th>
+                                Amount
+                            </th>
+
+                            <th>
+                                Method
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Recovery
+                            </th>
+
+                            <th>
+                                Created
+                            </th>
+
+                            <th></th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="transactions">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="auth.js"></script>
+<script src="transactions.js"></script>
+
+</body>
+
+</html>

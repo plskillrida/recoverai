@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Transaction Details | RecoverAI
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script>
+    if (
+        localStorage.getItem("recoverai-theme") === "light"
+    ) {
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+                document.body.classList.add("light-mode");
+            }
+        );
+    }
+</script>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                R
+            </div>
+
+            <div>
+
+                <h1>
+                    RecoverAI
+                </h1>
+
+                <span>
+                    Payment Recovery
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+
+            <a
+                href="index.html"
+                class="nav-item"
+            >
+
+                <span>
+                    ▦
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="recoveries.html"
+                class="nav-item"
+            >
+
+                <span>
+                    ↻
+                </span>
+
+                Recoveries
+
+            </a>
+
+
+            <a
+                href="transactions.html"
+                class="nav-item active"
+            >
+
+                <span>
+                    ◈
+                </span>
+
+                Transactions
+
+            </a>
+
+
+            <a href="settings.html" class="nav-item">
+
+                <span>
+                    ⚙
+                </span>
+
+                Settings
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="ai-status">
+
+                <div class="status-dot"></div>
+
+                <div>
+
+                    <strong>
+                        AI Engine
+                    </strong>
+
+                    <span>
+                        Operational
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <header class="header">
+
+
+            <div>
+
+
+                <a
+                    href="transactions.html"
+                    class="back-link"
+                >
+                    ← Back to Transactions
+                </a>
+
+
+                <h2>
+                    Transaction Details
+                </h2>
+
+
+                <p>
+                    Payment failure analysis and recovery information.
+                </p>
+
+
+            </div>
+
+
+            <div class="header-status">
+
+                <span class="pulse"></span>
+
+                System operational
+
+            </div>
+
+
+        </header>
+
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="panel transaction-loading"
+        >
+
+            <div class="loading">
+
+                Loading transaction...
+
+            </div>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="error"
+            class="panel transaction-error"
+            style="display: none;"
+        >
+
+            <h3>
+                Unable to load transaction
+            </h3>
+
+
+            <p id="error-message">
+
+                An error occurred while loading the transaction.
+
+            </p>
+
+
+            <a
+                href="transactions.html"
+                class="recovery-button"
+            >
+
+                Back to Transactions
+
+            </a>
+
+        </div>
+
+
+        <!-- TRANSACTION CONTENT -->
+
+        <div
+            id="transaction-content"
+            style="display: none;"
+        >
+
+
+            <!-- PAYMENT SUMMARY -->
+
+            <section
+                class="transaction-hero panel"
+            >
+
+
+                <div>
+
+                    <span class="detail-label">
+                        PAYMENT AMOUNT
+                    </span>
+
+
+                    <div
+                        id="amount"
+                        class="transaction-amount"
+                    >
+                        ₹0
+                    </div>
+
+
+                    <span
+                        id="status"
+                        class="badge badge-failed"
+                    >
+                        FAILED
+                    </span>
+
+                </div>
+
+
+                <div class="transaction-summary">
+
+
+                    <div>
+
+                        <span>
+                            Payment Method
+                        </span>
+
+                        <strong id="method">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Recovery Status
+                        </span>
+
+                        <strong id="recovery-status">
+                            Not initiated
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- DETAILS GRID -->
+
+            <section
+                class="transaction-grid"
+            >
+
+
+                <!-- PAYMENT INFORMATION -->
+
+                <div
+                    class="panel detail-panel"
+                >
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                Payment Information
+                            </h3>
+
+                            <p>
+                                Transaction identifiers and payment data
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="detail-list">
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Payment ID
+                            </span>
+
+                            <strong
+                                id="payment-id"
+                                class="mono"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Order ID
+                            </span>
+
+                            <strong
+                                id="order-id"
+                                class="mono"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Currency
+                            </span>
+
+                            <strong id="currency">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Payment Method
+                            </span>
+
+                            <strong id="method-detail">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Created
+                            </span>
+
+                            <strong id="created-at">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- FAILURE INFORMATION -->
+
+                <div
+                    class="panel detail-panel"
+                >
+
+
+                    <div class="panel-header">
+
+
+                        <div>
+
+                            <h3>
+                                Failure Information
+                            </h3>
+
+                            <p>
+                                Razorpay failure details
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="detail-list">
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Error Code
+                            </span>
+
+                            <strong
+                                id="error-code"
+                                class="error-code"
+                            >
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div
+                            class="detail-row detail-row-column"
+                        >
+
+                            <span>
+                                Error Description
+                            </span>
+
+                            <strong id="error-description">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- AI DECISION -->
+
+            <section
+                class="panel detail-panel ai-detail-panel"
+            >
+
+
+                <div class="panel-header">
+
+
+                    <div>
+
+                        <h3>
+                            AI Recovery Decision
+                        </h3>
+
+                        <p>
+                            RecoverAI analysis of this failed payment
+                        </p>
+
+                    </div>
+
+
+                    <span class="ai-badge">
+                        AI
+                    </span>
+
+
+                </div>
+
+
+                <div
+                    class="ai-decision-detail"
+                >
+
+
+                    <div class="decision-icon">
+                        ✓
+                    </div>
+
+
+                    <div>
+
+
+                        <span class="detail-label">
+                            RECOMMENDED ACTION
+                        </span>
+
+
+                        <strong
+                            id="ai-action"
+                            class="ai-action"
+                        >
+                            -
+                        </strong>
+
+
+                        <p id="ai-reason">
+                            Analyzing transaction...
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- RECOVERY -->
+
+            <section
+                class="panel detail-panel"
+            >
+
+
+                <div class="panel-header">
+
+
+                    <div>
+
+                        <h3>
+                            Recovery
+                        </h3>
+
+                        <p>
+                            Recovery attempt generated by RecoverAI
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div
+                    id="recovery-area"
+                    class="recovery-area"
+                >
+
+                    <p class="loading">
+                        Loading recovery information...
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- IMPORTANT:
+     This page uses transaction.js,
+     NOT transactions.js.
+-->
+
+<script src="auth.js"></script>
+<script src="transaction.js"></script>
+
+
+</body>
+
+</html>

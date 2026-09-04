@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Settings | RecoverAI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        /* Apply saved theme before page renders */
+        const savedTheme =
+            localStorage.getItem("recoverai-theme");
+
+        if (savedTheme === "light") {
+            document.documentElement.classList.add("preload-light");
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.classList.add("light-mode");
+                document.documentElement.classList.remove("preload-light");
+            });
+        }
+    </script>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                R
+            </div>
+
+            <div>
+
+                <h1>
+                    RecoverAI
+                </h1>
+
+                <span>
+                    Payment Recovery
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a
+                href="index.html"
+                class="nav-item"
+            >
+                <span>▦</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="recoveries.html"
+                class="nav-item"
+            >
+                <span>↻</span>
+                Recoveries
+            </a>
+
+
+            <a
+                href="transactions.html"
+                class="nav-item"
+            >
+                <span>◈</span>
+                Transactions
+            </a>
+
+
+            <a
+                href="settings.html"
+                class="nav-item active"
+            >
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="ai-status">
+
+                <div class="status-dot"></div>
+
+                <div>
+
+                    <strong>
+                        AI Engine
+                    </strong>
+
+                    <span>
+                        Operational
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <header class="header">
+
+            <div>
+
+                <h2>
+                    Settings
+                </h2>
+
+                <p>
+                    Configure your RecoverAI dashboard.
+                </p>
+
+            </div>
+
+
+            <div class="header-status">
+
+                <span class="pulse"></span>
+
+                System operational
+
+            </div>
+
+        </header>
+
+
+        <!-- APPEARANCE -->
+
+        <section class="panel settings-section">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        Appearance
+                    </h3>
+
+                    <p>
+                        Customize how RecoverAI looks.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-list">
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>
+                            Theme
+                        </strong>
+
+                        <p>
+                            Choose between light and dark
+                            dashboard themes.
+                        </p>
+
+                    </div>
+
+
+                    <div class="theme-toggle">
+
+                        <button
+                            id="dark-theme"
+                            class="theme-option"
+                            onclick="setTheme('dark')"
+                        >
+                            Dark
+                        </button>
+
+
+                        <button
+                            id="light-theme"
+                            class="theme-option"
+                            onclick="setTheme('light')"
+                        >
+                            Light
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECOVERY -->
+
+        <section class="panel settings-section">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        Recovery Engine
+                    </h3>
+
+                    <p>
+                        Recovery monitoring configuration.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-list">
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>
+                            Automatic Recovery Verification
+                        </strong>
+
+                        <p>
+                            RecoverAI periodically checks
+                            generated payment links for
+                            completed payments.
+                        </p>
+
+                    </div>
+
+
+                    <div class="system-status">
+
+                        <span class="status-dot"></span>
+
+                        <span class="status-online">
+                            Enabled
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>
+                            Recovery Webhooks
+                        </strong>
+
+                        <p>
+                            Razorpay payment events update
+                            recovery status automatically.
+                        </p>
+
+                    </div>
+
+
+                    <div class="system-status">
+
+                        <span class="status-dot"></span>
+
+                        <span class="status-online">
+                            Active
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SYSTEM -->
+
+        <section class="panel settings-section">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        System
+                    </h3>
+
+                    <p>
+                        RecoverAI service status.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-list">
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>
+                            Backend API
+                        </strong>
+
+                        <p>
+                            FastAPI recovery service.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="system-status"
+                        id="backend-status"
+                    >
+
+                        <span class="status-dot"></span>
+
+                        <span class="status-online">
+                            Checking...
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>
+                            AI Recovery Engine
+                        </strong>
+
+                        <p>
+                            Transaction failure analysis
+                            and recovery decisions.
+                        </p>
+
+                    </div>
+
+
+                    <div class="system-status">
+
+                        <span class="status-dot"></span>
+
+                        <span class="status-online">
+                            Operational
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>
+                            Payment Provider
+                        </strong>
+
+                        <p>
+                            Razorpay Test Mode integration.
+                        </p>
+
+                    </div>
+
+
+                    <div class="system-status">
+
+                        <span class="status-dot"></span>
+
+                        <span class="status-online">
+                            Connected
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+<script src="auth.js"></script>
+<script src="settings.js"></script>
+
+</body>
+
+</html>
